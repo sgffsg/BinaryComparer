@@ -1,0 +1,15 @@
+D:\Projects\BinaryFilesComparer\UserInterface\bin\Debug\UserInterface.exe.config
+D:\Projects\BinaryFilesComparer\UserInterface\bin\Debug\UserInterface.exe
+D:\Projects\BinaryFilesComparer\UserInterface\bin\Debug\UserInterface.pdb
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.csproj.AssemblyReference.cache
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.csproj.SuggestedBindingRedirects.cache
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.FileDifferenceForm.resources
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.Properties.Resources.resources
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.csproj.GenerateResource.cache
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.csproj.CoreCompileInputs.cache
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.exe
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.pdb
+D:\Projects\BinaryFilesComparer\UserInterface\bin\Debug\DiffEngine.dll
+D:\Projects\BinaryFilesComparer\UserInterface\bin\Debug\DiffEngine.pdb
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.csproj.CopyComplete
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.InitForm.resources
