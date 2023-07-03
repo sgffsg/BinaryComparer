@@ -16,5 +16,37 @@ namespace UserInterface
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form form = new FileDifferenceForm();
+            form.Owner = this;
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                this.Show();
+            }
+            else
+            {
+                this.Show();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form form = new FileModificationForm();
+            form.Owner = this;
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                this.Show();
+            }
+            else
+            {
+                this.Show();
+            }
+        }
+
+        
     }
 }

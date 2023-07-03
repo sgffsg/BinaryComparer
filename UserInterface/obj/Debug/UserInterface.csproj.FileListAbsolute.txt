@@ -13,3 +13,5 @@ D:\Projects\BinaryFilesComparer\UserInterface\bin\Debug\DiffEngine.dll
 D:\Projects\BinaryFilesComparer\UserInterface\bin\Debug\DiffEngine.pdb
 D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.csproj.CopyComplete
 D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.InitForm.resources
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.FileModificationForm.resources
+D:\Projects\BinaryFilesComparer\UserInterface\obj\Debug\UserInterface.SaveComparisionForm.resources

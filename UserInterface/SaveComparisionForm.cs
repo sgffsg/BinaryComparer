@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UserInterface
 {
-    public partial class StartForm : Form
+    public partial class SaveComparisionForm : Form
     {
-        public StartForm()
+        public SaveComparisionForm()
         {
             InitializeComponent();
         }

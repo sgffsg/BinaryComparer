@@ -8,6 +8,7 @@ namespace DiffEngine.DTO
 {
     public interface IBinaryComparisonResult 
     {
+        
         string Result { get; }
     }
 }

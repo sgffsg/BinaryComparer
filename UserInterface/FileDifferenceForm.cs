@@ -19,6 +19,7 @@ namespace UserInterface
         private static string mod = $"../../../Test/Remade.bin";
 
         private BinaryComparer binaryComparer;
+        private ComparisionResult comparisionResult;
 
         private static bool baseFileIsLoaded = false;
         private static bool modFileIsLoaded = false;
@@ -32,7 +33,7 @@ namespace UserInterface
         #region Events
         private void OnLoad(object sender, EventArgs e)
         {
-            toolStripStatusLabel.Text = "Тестовый режим";
+
         }
 
         private void OnClosing(object sender, FormClosingEventArgs e)
@@ -161,16 +162,25 @@ namespace UserInterface
             if (!baseFilePath.Equals(string.Empty) || !modFilePath.Equals(string.Empty))
             {
                 binaryComparer = new BinaryComparer(baseFilePath, modFilePath);
-                binaryComparer.PerformComparision();
+                comparisionResult = binaryComparer.PerformComparision();
+                
+
+
             }
             else
                 MessageBox.Show("Выберите файлы для сравнения", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        private void OutputResults(List<Difference> differences)
+        
+
+        
+
+        private void saveResultsButton_Click(object sender, EventArgs e)
         {
-            foreach (var difference in differences)
-                resultListView.Items.Add($"{difference.Address}");
+            if (MessageBox.Show("Вы действительно хотите сохранить результаты","Подтверждение",MessageBoxButtons.OKCancel,MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                binaryComparer.SaveComparisionResults(comparisionResult, Application.ExecutablePath);
+            }
         }
 
         /*private void toolStripConsoleTest_Click(object sender, EventArgs e)

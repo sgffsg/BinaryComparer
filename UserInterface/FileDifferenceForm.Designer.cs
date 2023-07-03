@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("asd");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("123");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("123");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("123");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("123");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("123");
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("123");
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("123");
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("123");
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("asd");
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("123");
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("123");
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("123");
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("123");
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("123");
+            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("123");
+            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("123");
+            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("123");
             this.selectBaseFileButton = new System.Windows.Forms.Button();
             this.filePath1 = new System.Windows.Forms.TextBox();
             this.filePath2 = new System.Windows.Forms.TextBox();
@@ -51,6 +51,7 @@
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OriginExample = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ModificationExample = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.saveResultsButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -118,8 +119,8 @@
             // 
             this.toolStripStatusLabel.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(112, 17);
-            this.toolStripStatusLabel.Text = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(166, 17);
+            this.toolStripStatusLabel.Text = "Application work in test mode";
             // 
             // toolStripProgressBar
             // 
@@ -135,15 +136,15 @@
             this.resultListView.HotTracking = true;
             this.resultListView.HoverSelection = true;
             this.resultListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9});
+            listViewItem10,
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15,
+            listViewItem16,
+            listViewItem17,
+            listViewItem18});
             this.resultListView.Location = new System.Drawing.Point(12, 175);
             this.resultListView.Name = "resultListView";
             this.resultListView.Size = new System.Drawing.Size(760, 235);
@@ -204,12 +205,26 @@
             this.ModificationExample.Name = "ModificationExample";
             this.ModificationExample.ReadOnly = true;
             // 
+            // saveResultsButton
+            // 
+            this.saveResultsButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.saveResultsButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.saveResultsButton.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.saveResultsButton.Location = new System.Drawing.Point(672, 315);
+            this.saveResultsButton.Name = "saveResultsButton";
+            this.saveResultsButton.Size = new System.Drawing.Size(134, 47);
+            this.saveResultsButton.TabIndex = 12;
+            this.saveResultsButton.Text = "Сохранить результаты";
+            this.saveResultsButton.UseVisualStyleBackColor = false;
+            this.saveResultsButton.Click += new System.EventHandler(this.saveResultsButton_Click);
+            // 
             // FileDifferenceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(784, 436);
+            this.Controls.Add(this.saveResultsButton);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.resultListView);
             this.Controls.Add(this.statusStrip1);
@@ -247,5 +262,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn OriginExample;
         private System.Windows.Forms.DataGridViewTextBoxColumn ModificationExample;
+        private System.Windows.Forms.Button saveResultsButton;
     }
 }
