@@ -19,15 +19,15 @@ namespace DiffEngine.DTO
             this.comparisionResultType = comparisionResultType;
         }
 
-        public ComparisionResultType comparisionResultType;
-        public Difference[] differences { get; set; }
+        public ComparisionResultType comparisionResultType { get; set; }
+        public Difference[] differences { get; }
 
-        public string Module;
-        public string HardwareNumber;
-        public string ECU;
-        public string SoftwareVersion;
-        public string Calibration;
-        public string CVN;
+        public string Module { get; }
+        public string HardwareNumber { get; }
+        public string ECU { get; }
+        public string SoftwareVersion { get; }
+        public string Calibration { get; }
+        public string CVN { get; }
     }
 
     public enum ComparisionResultType

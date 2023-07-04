@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,12 +45,8 @@
     <Compile Include="BinaryComparer.cs" />
     <Compile Include="BinaryFile.cs" />
     <Compile Include="BinarySerializer.cs" />
-    <Compile Include="DTO\BinariesAreEqual.cs" />
-    <Compile Include="DTO\BinariesHaveDifferences.cs" />
-    <Compile Include="DTO\BinariesOfDifferentSize.cs" />
     <Compile Include="ComparisionResult.cs" />
     <Compile Include="DTO\Difference.cs" />
-    <Compile Include="DTO\IBinaryComparisonResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace DiffEngine
@@ -13,10 +14,10 @@ namespace DiffEngine
     {
         private BinaryFile _baseFile;
         private BinaryFile _modFile;
-        public BinaryComparer(string baseFilePath, string modFilePath) 
+        public BinaryComparer(string baseFilePath, string modFilePath)
         {
             _baseFile = new BinaryFile(baseFilePath);
-            _modFile  = new BinaryFile(modFilePath);
+            _modFile = new BinaryFile(modFilePath);
         }
 
         public ComparisionResult PerformComparision()
@@ -26,10 +27,12 @@ namespace DiffEngine
 
             if (_baseFile.Length != _modFile.Length)
             {
+                MessageBox.Show($"{_baseFile.Length} {_modFile.Length}");
                 return new ComparisionResult(ComparisionResultType.DifferentSize);
             }
 
             var differences = FindDifferences().ToArray();
+
             return differences.Any()
                 ? new ComparisionResult(differences, ComparisionResultType.HaveDifferences)
                 : new ComparisionResult(ComparisionResultType.Equal);
@@ -37,44 +40,38 @@ namespace DiffEngine
 
         private IEnumerable<Difference> FindDifferences()
         {
-            return new Difference[12];
-            /*int? differenceStart = null;
-            for (int i = 0; i < _baseFile.Length; i++)
+            var len = _baseFile.Length;
+
+            for (int ix = 0; ix < len; ix += 16)
             {
-                bool bytesAreSame = _baseFile.ByteArray[i] == _modFile.ByteArray[i];
-                
-                if (!bytesAreSame && !differenceStart.HasValue)
+                var cnt = Math.Min(16, len - ix);
+                var line1 = new byte[cnt];
+                var line2 = new byte[cnt];
+
+                Array.Copy(_baseFile.ByteArray, ix, line1, 0, cnt);
+                Array.Copy(_modFile.ByteArray, ix, line2, 0, cnt);
+
+                for (int jx = 0; jx < cnt; jx++)
                 {
-                    differenceStart = i;
-                }
-                else if (bytesAreSame && differenceStart.HasValue)
-                {
-                    yield return new Difference(
-                        startIndex: differenceStart.Value,
-                        length: i - differenceStart.Value);
-                    differenceStart = null;
+                    if (line1[jx] != line2[jx])
+                    {
+                        yield return new Difference(
+                            address: ix,
+                            pos: jx,
+                            orig: line1[jx],
+                            mod: line2[jx],
+                            origExample: BitConverter.ToString(line1),
+                            modExample: BitConverter.ToString(line2)
+                            );
+                    }
                 }
             }
-
-            if (differenceStart.HasValue)
-            {
-                yield return new Difference(
-                    startIndex: differenceStart.Value,
-                    length: leftBinary.Length - differenceStart.Value);
-            }*/
         }
+
 
         public void SaveComparisionResults(ComparisionResult comparisionResult, string path)
         {
-            string saveFile = Path.Combine(path, "/Modules/", $"{comparisionResult.Module}.cmp");
-            BinarySerializer.Serialize(saveFile, comparisionResult);
+            BinarySerializer.Serialize(path, comparisionResult);
         }
-
-        /*public void SaveComparisionResults(IBinaryComparisonResult binaryComparisonResult, string path)
-        {
-            if (binaryComparisonResult == (IBinaryComparisonResult) new BinariesHaveDifferences)
-            string saveFile = Path.Combine(Application.ExecutablePath, "/Modules/", $"{comparisionResult.Module}.cmp");
-            BinarySerializer.Serialize(saveFile, comparisionResult);
-        }*/
     }
 }
