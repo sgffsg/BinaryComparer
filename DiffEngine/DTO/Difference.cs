@@ -9,22 +9,39 @@ namespace DiffEngine.DTO
     [Serializable]
     public class Difference
     {
-        public string Address { get; }
+        public string Address { get; set; }
         public int StartIndex { get; }
         public int Length { get; }
 
-        public byte[] origins;
-        public byte[] modifications;
+        public List<byte> origins;
+        public List<byte> modifications;
         public string originExample;
         public string modificationExample;
 
-        public Difference(string address, int startIndex, int length)
+        public Difference(int startIndex, int length)
         {
             if (startIndex < 0) throw new ArgumentOutOfRangeException(nameof(startIndex));
             if (length <= 0) throw new ArgumentOutOfRangeException(nameof(length));
 
             this.StartIndex = startIndex;
             this.Length = length;
+        }
+
+        public Difference(string address, int startIndex, int length, List<byte> origins, List <byte> modifications, string origExample, string modExample)
+        {
+            if (startIndex < 0) throw new ArgumentOutOfRangeException(nameof(startIndex));
+            if (length <= 0) throw new ArgumentOutOfRangeException(nameof(length));
+
+            this.Address = address;
+
+            this.StartIndex = startIndex;
+            this.Length = length;
+
+            this.origins = origins;
+            this.modifications = modifications;
+
+            this.originExample = origExample;
+            this.modificationExample = modExample;
         }
 
         /*public string Display()

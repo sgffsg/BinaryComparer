@@ -28,7 +28,8 @@ namespace UserInterface
         public FileDifferenceForm()
         {
             InitializeComponent();
-            
+            filePath1.Text = "D:\\Projects\\BinaryFilesComparer\\Test\\Base.bin";
+            filePath2.Text = "D:\\Projects\\BinaryFilesComparer\\Test\\Remade.bin";
         }
         #region Events
         private void OnLoad(object sender, EventArgs e)
@@ -97,9 +98,10 @@ namespace UserInterface
                     {
                         //Console.Write($"Address:{ix:X8} Pos:{jx}  {BitConverter.ToString(BitConverter.GetBytes(line1[jx])).Split('-')[0]} {BitConverter.ToString(BitConverter.GetBytes(line2[jx])).Split('-')[0]} | ");
 
-                        Console.Write($"{ix:X8}:{Convert.ToString(jx, 16).ToUpper()} {BitConverter.ToString(BitConverter.GetBytes(line1[jx])).Split('-')[0]} {BitConverter.ToString(BitConverter.GetBytes(line2[jx])).Split('-')[0]} | ");
+                        Console.WriteLine($"{ix:X8}:  {BitConverter.ToString(BitConverter.GetBytes(line1[jx])).Split('-')[0]} {BitConverter.ToString(BitConverter.GetBytes(line2[jx])).Split('-')[0]}");
+                        //{Convert.ToString(jx, 16).ToUpper()} 
+
                         //Console.Write(BitConverter.ToString(line1));
-                        Console.WriteLine();
                     }
                 }
                 
@@ -114,17 +116,15 @@ namespace UserInterface
                 Console.WriteLine(Encoding.ASCII.GetString(line));*/
             }
 
-            string result = "";
 
-
-            return result;
+            return string.Empty;
         }
 
         private string GetFileName()
         {
             string fileName = string.Empty;
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = "c:\\";
+            //openFileDialog.InitialDirectory = "c:\\";
             openFileDialog.Filter = "(BIN)|*.bin";
             openFileDialog.FilterIndex = 1;
             openFileDialog.RestoreDirectory = true;
@@ -139,13 +139,6 @@ namespace UserInterface
         private void SelectBaseFileButton_Click(object sender, EventArgs e)
         {
             filePath1.Text = GetFileName();
-            /*Task<string> readBaseFileTask = Task.Run(() => ReadFile(baseFilePath));
-            readBaseFileTask.Wait();
-            if (readBaseFileTask.IsCompleted)
-                baseFileIsLoaded = true;
-            string[] arr = readBaseFileTask.Result.Split();
-            foreach (var el in arr)
-                listBox1.Items.Add(el);*/
         }
 
         private void SelectModFileButton_Click(object sender, EventArgs e)
@@ -153,55 +146,69 @@ namespace UserInterface
             filePath2.Text = GetFileName();
         }
 
-
-
-
         private void compareSelectedFilesButton_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear();
+            resultListView.Clear();
             Compare(bas, mod);
             if (!baseFilePath.Equals(string.Empty) || !modFilePath.Equals(string.Empty))
             {
                 binaryComparer = new BinaryComparer(baseFilePath, modFilePath);
                 comparisionResult = binaryComparer.PerformComparision();
-                
+                PrintResults(comparisionResult);
 
-
+                //binaryComparer.SaveComparisionResults(comparisionResult, Application.ExecutablePath);
             }
             else
                 MessageBox.Show("Выберите файлы для сравнения", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        
-
-        
-
-        private void saveResultsButton_Click(object sender, EventArgs e)
+        private void PrintResults(ComparisionResult comparisionResult)
         {
-            if (MessageBox.Show("Вы действительно хотите сохранить результаты","Подтверждение",MessageBoxButtons.OKCancel,MessageBoxIcon.Question) == DialogResult.OK)
+            switch(comparisionResult.comparisionResultType)
             {
-                binaryComparer.SaveComparisionResults(comparisionResult, Application.ExecutablePath);
+                case ComparisionResultType.None:
+                    break;
+                case ComparisionResultType.Equal:
+                    MessageBox.Show($"Файлы идентичны", "Результат",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case ComparisionResultType.DifferentSize:
+                    MessageBox.Show($"Файлы различных размеров", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case ComparisionResultType.HaveDifferences:
+                    for (int i = 0; i < comparisionResult.differences.Length; i++)
+                    {
+                        dataGridView1.Rows.Add();
+                        dataGridView1.Rows[i].Cells[0].Value = comparisionResult.differences[i].Address;
+                        dataGridView1.Rows[i].Cells[1].Value = $"От {comparisionResult.differences[i].StartIndex:X} До {(comparisionResult.differences[i].StartIndex + comparisionResult.differences[i].Length - 1):X}";
+                        dataGridView1.Rows[i].Cells[2].Value = comparisionResult.differences[i].originExample;
+                        dataGridView1.Rows[i].Cells[3].Value = comparisionResult.differences[i].modificationExample;
+                    }
+
+                    /*ListViewGroup baseGroup = new ListViewGroup("0", $"#{0}");
+                    resultListView.Groups.Add(baseGroup);
+                    resultListView.Items.Add("Адрес");
+                    resultListView.Items.Add($"Позиция");
+                    resultListView.Items.Add("Исходная строка");
+                    resultListView.Items.Add("Модифицированная строка");*/
+
+                    /*for (int i = 0; i < comparisionResult.differences.Length; i++)
+                    {
+                        Console.WriteLine($"{comparisionResult.differences[i].Address}");
+                        ListViewGroup group = new ListViewGroup((i+1).ToString(), $"#{i + 1}");
+                        resultListView.Groups.Add(group);
+                        //ADDRESS
+                        resultListView.Items.Add(comparisionResult.differences[i].Address).Group = group;
+                        //POSITION
+                        resultListView.Items.Add($"На позиции от {comparisionResult.differences[i].StartIndex:X} до {(comparisionResult.differences[i].StartIndex + comparisionResult.differences[i].Length):X}").Group = group;
+                        //EXAMPLES
+                        resultListView.Items.Add(comparisionResult.differences[i].originExample).Group = group;
+                        resultListView.Items.Add(comparisionResult.differences[i].modificationExample).Group = group;
+                    }*/
+                    break;
             }
+            
+            
         }
-
-        /*private void toolStripConsoleTest_Click(object sender, EventArgs e)
-        {
-            if (!baseFilePath.Equals(string.Empty) || !modFilePath.Equals(string.Empty))
-            {
-                Process cmd = new Process();
-                cmd.StartInfo.RedirectStandardInput = true;
-                cmd.StartInfo.RedirectStandardOutput = false;
-                cmd.StartInfo.CreateNoWindow = false;
-                cmd.StartInfo.UseShellExecute = false;
-
-                cmd.StartInfo.FileName = "cmd.exe";
-                cmd.Start();
-
-                string cmdQuarry = $"fc.exe {baseFilePath} {modFilePath}";
-                cmdQuarry.Replace('/', '\\');
-
-                cmd.StandardInput.WriteLine(cmdQuarry);
-                cmd.StandardInput.Flush();
-            }
-        }*/
     }
 }

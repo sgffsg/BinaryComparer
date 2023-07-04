@@ -35,7 +35,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.Location = new System.Drawing.Point(12, 24);
             this.button1.Name = "button1";
@@ -48,6 +48,7 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button2.Enabled = false;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.Location = new System.Drawing.Point(12, 94);
