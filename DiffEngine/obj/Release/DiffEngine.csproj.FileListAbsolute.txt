@@ -1,0 +1,6 @@
+D:\Projects\BinaryFilesComparer\DiffEngine\bin\Release\DiffEngine.dll
+D:\Projects\BinaryFilesComparer\DiffEngine\bin\Release\DiffEngine.pdb
+D:\Projects\BinaryFilesComparer\DiffEngine\obj\Release\DiffEngine.csproj.AssemblyReference.cache
+D:\Projects\BinaryFilesComparer\DiffEngine\obj\Release\DiffEngine.csproj.CoreCompileInputs.cache
+D:\Projects\BinaryFilesComparer\DiffEngine\obj\Release\DiffEngine.dll
+D:\Projects\BinaryFilesComparer\DiffEngine\obj\Release\DiffEngine.pdb
