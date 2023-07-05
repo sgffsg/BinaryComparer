@@ -1,24 +1,20 @@
-﻿using DiffEngine.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
+using DiffEngine.DTO;
 
 namespace DiffEngine
 {
     public class BinaryComparer
     {
-        private BinaryFile _baseFile;
-        private BinaryFile _modFile;
         public BinaryComparer(string baseFilePath, string modFilePath)
         {
             _baseFile = new BinaryFile(baseFilePath);
             _modFile = new BinaryFile(modFilePath);
         }
+
+        private BinaryFile _baseFile;
+        private BinaryFile _modFile;
 
         public ComparisionResult PerformComparision()
         {
@@ -27,7 +23,6 @@ namespace DiffEngine
 
             if (_baseFile.Length != _modFile.Length)
             {
-                MessageBox.Show($"{_baseFile.Length} {_modFile.Length}");
                 return new ComparisionResult(ComparisionResultType.DifferentSize);
             }
 
@@ -39,6 +34,36 @@ namespace DiffEngine
         }
 
         private IEnumerable<Difference> FindDifferences()
+        {
+            var len = _baseFile.Length;
+            for (int index = 0; index < len; index += 16)
+            {
+                var cnt = Math.Min(16, len - index);
+                var line1 = new byte[cnt];
+                var line2 = new byte[cnt];
+
+                Array.Copy(_baseFile.ByteArray, index, line1, 0, cnt);
+                Array.Copy(_modFile.ByteArray, index, line2, 0, cnt);
+
+                for (int bIndex = 0; bIndex < cnt; bIndex++)
+                {
+                    bool bytesAreSame = line1[bIndex] == line2[bIndex];
+
+                    if (!bytesAreSame)
+                    {
+                        yield return new Difference(
+                                            address: index,
+                                            baseLine: line1,
+                                            modLine: line2
+                                         );
+                        break;
+                    }
+                } 
+            }
+                
+        }
+
+        /*private IEnumerable<Difference> FindDifferences2()
         {
             var len = _baseFile.Length;
 
@@ -66,12 +91,6 @@ namespace DiffEngine
                     }
                 }
             }
-        }
-
-
-        public void SaveComparisionResults(ComparisionResult comparisionResult, string path)
-        {
-            BinarySerializer.Serialize(path, comparisionResult);
-        }
+        }*/
     }
 }

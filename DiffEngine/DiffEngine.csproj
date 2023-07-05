@@ -44,8 +44,7 @@
   <ItemGroup>
     <Compile Include="BinaryComparer.cs" />
     <Compile Include="BinaryFile.cs" />
-    <Compile Include="BinarySerializer.cs" />
-    <Compile Include="ComparisionResult.cs" />
+    <Compile Include="DTO\ComparisionResult.cs" />
     <Compile Include="DTO\Difference.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

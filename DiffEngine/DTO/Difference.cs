@@ -10,22 +10,15 @@ namespace DiffEngine.DTO
     public class Difference
     {
         public int Address { get; }
-        public int Position { get; }
-        public byte origValue { get; }
-        public byte modValue { get; }
-        public string originExample { get; }
-        public string modificationExample { get; }
-
-        public Difference(int address, int pos, byte orig, byte mod, string origExample, string modExample)
+        public byte[] BaseLine { get; }
+        public byte[] ModifiedLine { get; }
+        
+        public Difference(int address, byte[] baseLine, byte[] modLine)
         {
             this.Address = address;
 
-            this.Position = pos;
-            this.origValue = orig;
-            this.modValue = mod;
-
-            this.originExample = origExample;
-            this.modificationExample = modExample;
+            this.BaseLine = baseLine;
+            this.ModifiedLine = modLine;
         }
     }
 }
