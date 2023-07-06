@@ -9,20 +9,21 @@ namespace DiffEngine.DTO
     [Serializable]
     public class ComparisionResult
     {
-        public ComparisionResult(ComparisionResultType comparisionResultType)
+        public ResultType resultType { get; }
+        public Difference[] differences { get; }
+        public ComparisionResult(ResultType resultType)
         {
-            this.comparisionResultType = comparisionResultType;
+            this.resultType = resultType;
         }
-        public ComparisionResult(Difference[] _differences, ComparisionResultType comparisionResultType)
+        public ComparisionResult(Difference[] _differences, ResultType resultType)
         {
             differences = _differences;
-            this.comparisionResultType = comparisionResultType;
+            this.resultType = resultType;
         }
-        public ComparisionResultType comparisionResultType { get; set; }
-        public Difference[] differences { get; }
+        
     }
 
-    public enum ComparisionResultType
+    public enum ResultType
     {
         None,
         Equal,

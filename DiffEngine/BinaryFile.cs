@@ -10,13 +10,15 @@ namespace DiffEngine
 {
     internal class BinaryFile
     {
+        public byte[] ByteArray { get; }
+        public int Length { get { return ByteArray.Length; } }
+
         public BinaryFile(string fileName)
         {
             FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
             try
             {
                 ByteArray = new byte[(int)fs.Length];
-
                 fs.Read(ByteArray, 0, (int)fs.Length);
             }
             catch (Exception ex)
@@ -28,9 +30,6 @@ namespace DiffEngine
                 if (fs != null) fs.Close();
             }
         }
-
-        public byte[] ByteArray { get; }
-        public int Length { get { return ByteArray.Length; } }
 
         public byte GetByIndex(int index)
         {

@@ -207,8 +207,6 @@
             this.Name = "FileDifferenceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Сравнение файлов";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClosing);
-            this.Load += new System.EventHandler(this.OnLoad);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

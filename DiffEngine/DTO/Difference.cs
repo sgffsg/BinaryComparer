@@ -16,7 +16,6 @@ namespace DiffEngine.DTO
         public Difference(int address, byte[] baseLine, byte[] modLine)
         {
             this.Address = address;
-
             this.BaseLine = baseLine;
             this.ModifiedLine = modLine;
         }

@@ -7,14 +7,14 @@ namespace DiffEngine
 {
     public class BinaryComparer
     {
+        private BinaryFile _baseFile;
+        private BinaryFile _modFile;
+
         public BinaryComparer(string baseFilePath, string modFilePath)
         {
             _baseFile = new BinaryFile(baseFilePath);
             _modFile = new BinaryFile(modFilePath);
         }
-
-        private BinaryFile _baseFile;
-        private BinaryFile _modFile;
 
         public ComparisionResult PerformComparision()
         {
@@ -23,20 +23,21 @@ namespace DiffEngine
 
             if (_baseFile.Length != _modFile.Length)
             {
-                return new ComparisionResult(ComparisionResultType.DifferentSize);
+                return new ComparisionResult(ResultType.DifferentSize);
             }
 
             var differences = FindDifferences().ToArray();
 
             return differences.Any()
-                ? new ComparisionResult(differences, ComparisionResultType.HaveDifferences)
-                : new ComparisionResult(ComparisionResultType.Equal);
+                ? new ComparisionResult(differences, ResultType.HaveDifferences)
+                : new ComparisionResult(ResultType.Equal);
         }
 
         private IEnumerable<Difference> FindDifferences()
         {
             var len = _baseFile.Length;
-            for (int index = 0; index < len; index += 16)
+            
+			for (int index = 0; index < len; index += 16)
             {
                 var cnt = Math.Min(16, len - index);
                 var line1 = new byte[cnt];
@@ -60,37 +61,6 @@ namespace DiffEngine
                     }
                 } 
             }
-                
         }
-
-        /*private IEnumerable<Difference> FindDifferences2()
-        {
-            var len = _baseFile.Length;
-
-            for (int ix = 0; ix < len; ix += 16)
-            {
-                var cnt = Math.Min(16, len - ix);
-                var line1 = new byte[cnt];
-                var line2 = new byte[cnt];
-
-                Array.Copy(_baseFile.ByteArray, ix, line1, 0, cnt);
-                Array.Copy(_modFile.ByteArray, ix, line2, 0, cnt);
-
-                for (int jx = 0; jx < cnt; jx++)
-                {
-                    if (line1[jx] != line2[jx])
-                    {
-                        yield return new Difference(
-                            address: ix,
-                            pos: jx,
-                            orig: line1[jx],
-                            mod: line2[jx],
-                            origExample: BitConverter.ToString(line1),
-                            modExample: BitConverter.ToString(line2)
-                            );
-                    }
-                }
-            }
-        }*/
     }
 }

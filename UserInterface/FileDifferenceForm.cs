@@ -9,10 +9,6 @@ namespace UserInterface
 {
     public partial class FileDifferenceForm : Form
     {
-        public FileDifferenceForm()
-        {
-            InitializeComponent();
-        }
         #region Variables
         private string baseFilePath { get { return filePath1.Text; } }
         private string modFilePath { get { return filePath2.Text; } }
@@ -20,17 +16,10 @@ namespace UserInterface
         private BinaryComparer binaryComparer;
         #endregion
 
-        #region Events
-        private void OnLoad(object sender, EventArgs e)
+        public FileDifferenceForm()
         {
-
+            InitializeComponent();
         }
-
-        private void OnClosing(object sender, FormClosingEventArgs e)
-        {
-
-        }
-        #endregion
 
         private string GetFileName()
         {
@@ -75,21 +64,21 @@ namespace UserInterface
 
         private void PrintResult(ComparisionResult comparisionResult)
         {
-            switch(comparisionResult.comparisionResultType)
+            switch(comparisionResult.resultType)
             {
-                case ComparisionResultType.None:
+                case ResultType.None:
                     MessageBox.Show($"Неизвестная ошибка", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 
-                case ComparisionResultType.Equal:
+                case ResultType.Equal:
                     MessageBox.Show($"Файлы идентичны", "Результат",MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
                 
-                case ComparisionResultType.DifferentSize:
+                case ResultType.DifferentSize:
                     MessageBox.Show($"Файлы различных размеров", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 
-                case ComparisionResultType.HaveDifferences:
+                case ResultType.HaveDifferences:
                     AddToDataGridView(comparisionResult);
                     break;
             }
